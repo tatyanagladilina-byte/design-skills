@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Карта баланса навыков · Product / UX-UI designer</title>
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --panel: #FFFFFF;
+    --ink: #1A1A1A;
+    --muted: #6B6B6B;
+    --line: #E5E3DC;
+    --accent: #2E5BFF;
+    --accent-soft: #E8EEFF;
+    --ok: #2F9E4F;
+    --warn: #D97706;
+    --bad: #C02626;
+    --j: #A0A7B5;
+    --m: #4A90E2;
+    --s: #2E5BFF;
+    --l: #1B2A5B;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 120px; }
+  h1 { font-size: 34px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; }
+  h2 { font-size: 22px; line-height: 1.2; margin: 32px 0 12px; letter-spacing: -0.005em; }
+  h3 { font-size: 17px; margin: 0 0 4px; }
+  p  { margin: 0 0 12px; color: #2a2a2a; }
+  .muted { color: var(--muted); }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .intro-lead { font-size: 18px; color: #2a2a2a; }
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0 8px;
+  }
+  .meta-row--single { grid-template-columns: 1fr; max-width: 420px; }
+  .meta-row label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .meta-row input,
+  .meta-row select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 15px;
+    background: #fff;
+    font-family: inherit;
+    color: var(--ink);
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .meta-row select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='none' stroke='%236B6B6B' stroke-width='1.5' d='M1 1.5l5 5 5-5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.05s, background 0.15s;
+  }
+  .btn:hover { background: #000; }
+  .btn:active { transform: translateY(1px); }
+  .btn.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .btn.secondary:hover { border-color: var(--ink); background: #fff; }
+  .btn.ghost { background: transparent; color: var(--muted); padding: 8px 12px; }
+  .btn.ghost:hover { color: var(--ink); background: transparent; }
+  .progress-bar {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 0 0 28px;
+  }
+  .progress-bar > div { height: 100%; background: var(--accent); transition: width 0.3s; }
+  .step-label { font-size: 13px; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.03em; text-transform: uppercase; }
+  .skill-desc { font-size: 14px; color: var(--muted); margin: 0 0 20px; }
+  .option {
+    display: block;
+    padding: 16px 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .option:hover { border-color: #BFC8DD; }
+  .option input { display: none; }
+  .option .level {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .option[data-level="1"] .level { background: var(--j); }
+  .option[data-level="2"] .level { background: var(--m); }
+  .option[data-level="3"] .level { background: var(--s); }
+  .option[data-level="4"] .level { background: var(--l); }
+  .option.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .option .text { font-size: 15px; color: var(--ink); }
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+  }
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .result-grid { grid-template-columns: 1fr; }
+    .meta-row { grid-template-columns: 1fr; }
+  }
+  .level-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .verdict {
+    font-size: 20px;
+    line-height: 1.35;
+    margin: 16px 0 8px;
+  }
+  .imbalance-card {
+    background: #FFF8E6;
+    border: 1px solid #F3E2B3;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .imbalance-card.ok {
+    background: #EAFBEF;
+    border-color: #BFE9CC;
+  }
+  .imbalance-card strong { display: block; margin-bottom: 4px; }
+  .skill-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+  .skill-row:first-child { border-top: none; }
+  .skill-row .bar-wrap { flex: 0 0 120px; padding-top: 4px; }
+  .skill-row .bar {
+    height: 6px; background: var(--line); border-radius: 3px; overflow: hidden;
+  }
+  .skill-row .bar > div { height: 100%; background: var(--accent); }
+  .skill-row .bar.low > div { background: var(--bad); }
+  .skill-row .bar.mid > div { background: var(--warn); }
+  .skill-row .bar.high > div { background: var(--ok); }
+  .skill-row .body { flex: 1; }
+  .skill-row .body .name { font-weight: 600; font-size: 15px; }
+  .skill-row .body .rec { font-size: 14px; color: #2a2a2a; margin-top: 4px; }
+  .skill-row .body .lvl-text { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  svg.radar { width: 100%; height: auto; max-width: 460px; display: block; margin: 0 auto; }
+  .legend {
+    display: flex; flex-direction: column; gap: 2px; font-size: 12px;
+    align-items: center; margin-top: 10px; color: var(--muted); text-align: center;
+  }
+  .legend span { display: block; }
+  .next-step-card {
+    background: var(--accent-soft);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-top: 20px;
+  }
+  .next-step-card h3 { margin-bottom: 6px; }
+  .next-step-card .actions { margin-top: 10px; }
+  .next-step-card li { margin-bottom: 6px; }
+  .step-block {
+    display: flex; gap: 16px; padding: 20px 0; border-top: 1px solid var(--line);
+  }
+  .step-block:first-of-type { border-top: none; padding-top: 8px; }
+  .step-block .step-num {
+    flex: 0 0 36px; height: 36px; border-radius: 50%;
+    background: var(--ink); color: #fff; display: flex;
+    align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px;
+  }
+  .step-block .step-body { flex: 1; }
+  .step-block .step-body h3 { font-size: 16px; margin: 6px 0 6px; }
+  .step-block .step-body p { margin-bottom: 8px; }
+  .step-block .step-body ul { margin: 6px 0 0; padding-left: 20px; }
+  .step-block .step-body ul li { margin-bottom: 4px; }
+  .step-block .example {
+    background: var(--accent-soft); border-radius: 8px; padding: 10px 14px;
+    font-size: 14px; color: #1f2a44; margin: 6px 0 8px;
+    border-left: 3px solid var(--accent);
+  }
+  .traps { padding-left: 20px; margin: 0; }
+  .traps li { margin-bottom: 10px; }
+  .traps li b { display: block; margin-bottom: 2px; }
+  .footer-actions {
+    display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; flex-wrap: wrap;
+  }
+  .level-dots { display: inline-flex; gap: 4px; margin-left: 8px; vertical-align: middle; }
+  .level-dots span {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--line);
+  }
+  .level-dots span.on { background: var(--accent); }
+  .hidden { display: none !important; }
+
+  /* PRINT / PDF */
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff; }
+    .wrap { padding: 0; max-width: none; }
+    .no-print, .footer-actions, .btn { display: none !important; }
+    .panel { border: 1px solid #ddd; break-inside: avoid; page-break-inside: avoid; }
+    .result-grid { grid-template-columns: 1fr 1fr !important; }
+    .skill-row { break-inside: avoid; page-break-inside: avoid; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ==================== INTRO ==================== -->
+  <section id="intro">
+    <h1>Карта баланса навыков</h1>
+    <p class="muted">Product / UX-UI designer · Junior → Lead</p>
+    <div class="panel">
+      <p class="intro-lead">
+        Это не чеклист, а диагностика. Инструмент покажет, на каком уровне вы находитесь по 9 ключевым навыкам,
+        где перекос и какие именно навыки мешают вам вырасти до следующего грейда.
+      </p>
+      <p>
+        Пройдите 9 коротких вопросов — по одному на каждый навык. Для каждого навыка выберите формулировку,
+        которая честно описывает ваш ежедневный уровень работы (не «идеальный день», а средний).
+      </p>
+      <p>В конце увидите круговую диаграмму, общий уровень, зоны перекоса и персональные рекомендации. Результат можно сохранить в PDF.</p>
+      <div class="meta-row meta-row--single">
+        <div>
+          <label for="name">Имя (необязательно, попадёт в PDF)</label>
+          <input id="name" type="text" placeholder="Как вас зовут?" />
+        </div>
+      </div>
+      <div style="margin-top: 20px;">
+        <button class="btn" onclick="startAssessment()">Начать диагностику →</button>
+      </div>
+      <p class="muted" style="margin-top: 16px; font-size: 13px;">
+        Занимает 5–8 минут. Ничего никуда не отправляется — всё считается у вас в браузере.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== ASSESSMENT ==================== -->
+  <section id="assessment" class="hidden">
+    <div class="progress-bar"><div id="progress" style="width: 0%"></div></div>
+    <div class="step-label" id="step-label">Навык 1 из 8</div>
+    <h2 id="skill-name"></h2>
+    <p class="skill-desc" id="skill-desc"></p>
+    <div id="options"></div>
+    <div class="nav-row">
+      <button class="btn ghost" id="back-btn" onclick="goBack()">← Назад</button>
+      <button class="btn" id="next-btn" onclick="goNext()" disabled>Дальше →</button>
+    </div>
+  </section>
+
+  <!-- ==================== RESULTS ==================== -->
+  <section id="results" class="hidden">
+    <h1>Ваша карта навыков</h1>
+    <p class="muted" id="result-header">Product / UX-UI designer</p>
+
+    <div class="panel">
+      <div class="result-grid">
+        <div>
+          <svg class="radar" id="radar" viewBox="0 0 520 460" aria-hidden="true"></svg>
+          <div class="legend">
+            <span>Чем дальше от центра — тем выше уровень</span>
+            <span>1 = Junior · 2 = Middle · 3 = Senior · 4 = Lead</span>
+          </div>
+        </div>
+        <div>
+          <div class="level-badge" id="overall-level">—</div>
+          <div class="verdict" id="verdict"></div>
+          <p class="muted" id="verdict-explainer"></p>
+          <div id="imbalance-zone"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Разбор по каждому навыку</h2>
+      <p class="muted" style="margin-bottom: 16px;">Отсортировано от самого слабого к самому сильному — то, что тянет вниз, наверху.</p>
+      <div id="skills-breakdown"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Что делать дальше</h2>
+      <p>Этот отчёт — диагностика, а не приговор. Вот как превратить его в реальный рост за 3 месяца. Вы сейчас на уровне <b id="current-level-text">—</b>, и рост идёт не от полировки сильных, а от подтягивания слабых.</p>
+
+      <div class="step-block">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3 id="focus-title">Выберите 2 навыка для фокуса — не больше</h3>
+          <p class="muted" style="margin-bottom: 10px;">Подтягивать всё сразу значит не подтянуть ничего. Вот приоритеты именно для вас:</p>
+          <ul id="focus-list"></ul>
+          <p class="muted" style="font-size: 13px; margin-top: 6px;">Остальные навыки продолжают жить сами — не трогайте их, пока эти не дотянутся.</p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Сформулируйте конкретный результат на 3 месяца</h3>
+          <p>«Прокачать UX» — это не цель, это мечта. Цель должна звучать так:</p>
+          <div class="example">
+            «Провести 5 юзабилити-тестов по новой фиче и опубликовать отчёт команде» или «Собрать AI-workflow для дизайн-ресёрча и показать 2 кейса на демо».
+          </div>
+          <p>Главный критерий правильной цели — артефакт, который можно показать. Если в конце квартала нечего принести на стол, значит навык не вырос.</p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Обсудите карту с руководителем или ментором</h3>
+          <p>Принесите этот отчёт на 1:1 — сверить видение и договориться о росте. Три вопроса, которые стоит задать:</p>
+          <ul>
+            <li>Где вы видите те же уровни, а где оцениваете меня иначе? Почему?</li>
+            <li>Какие проекты в ближайший квартал дадут именно те навыки, над которыми я работаю?</li>
+            <li>По каким конкретно критериям мы поймём, что я готов(а) к следующему грейду?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Практикуйте в боевых задачах, а не на курсах</h3>
+          <p>Навык растёт не от лекций и книг, а от реальной работы с реальным продуктом и реальной обратной связью. Встройте фокус-скилл в ближайший рабочий проект. Если в текущих задачах ему негде проявиться — это сигнал сменить проект или команду, а не добавить ещё один курс в список.</p>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>Пройдите карту снова через 3 месяца</h3>
+          <p>Это единственный способ честно увидеть, вы двигаетесь или топчетесь. Сохраните текущий PDF — через квартал сравните профили. Если перекос сократился и слабые зоны подтянулись — претендуйте на следующий грейд. Если нет — не «стараться больше», а пересмотреть подход: возможно, не тот проект, не тот ментор, не те задачи.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Типичные ловушки</h2>
+      <p class="muted" style="margin-bottom: 16px;">Чаще всего дизайнеры срываются вот на этих четырёх штуках — посмотрите, нет ли вас среди них.</p>
+      <ul class="traps">
+        <li>
+          <b>Полировать сильные стороны вместо подтягивания слабых.</b>
+          Это самый частый тупик. Senior-UI-craft без коммуникации и продуктового мышления всё равно остаётся Middle. Грейд растёт от слабых, а не от сильных.
+        </li>
+        <li>
+          <b>Подтягивать всё сразу.</b>
+          Разбрасываясь на все 9 навыков, не вырастите ни одного. Выбор = отказ от всего остального. 2 навыка на квартал — это много.
+        </li>
+        <li>
+          <b>Учить теорию без практики.</b>
+          Прочитать книгу ≠ освоить навык. Навык появляется только в руках — в реальных задачах, с реальными стейкхолдерами, с реальным фидбеком. 80% курсов и книг не превращаются в изменения.
+        </li>
+        <li>
+          <b>Воспринимать карту как приговор.</b>
+          Это фотография вас сейчас, а не диагноз на всю жизнь. Через 3 месяца она будет другой. Главное — не «что я получил(а)», а «что я сделаю с этим».
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-actions no-print">
+      <button class="btn secondary" onclick="restart()">Пройти заново</button>
+      <button class="btn" onclick="window.print()">Сохранить в PDF ⤓</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* =====================================================================
+ * DATA: 8 skills × 4 level descriptors each
+ * Levels: 1 = Junior, 2 = Middle, 3 = Senior, 4 = Lead
+ * ===================================================================*/
+const SKILLS = [
+  {
+    key: "research",
+    name: "Исследования и дискавери",
+    desc: "Умение понять пользователя и проблему до того, как начать проектировать.",
+    levels: [
+      "Участвую в исследованиях под руководством: провожу интервью по чужому гайду, собираю фидбек. Сам дискавери не планирую.",
+      "Самостоятельно планирую и провожу юзер-интервью, юзабилити-тесты, конкурентный анализ. Могу сформулировать проблему из разговоров с пользователями.",
+      "Выбираю правильный метод под задачу, синтезирую данные в инсайты и связываю их с продуктовыми решениями. Исследование у меня напрямую влияет на то, что и как делаем.",
+      "Встраиваю дискавери в процесс команды, обучаю коллег проводить исследования, влияю на продуктовую стратегию через research."
+    ],
+    recs: [
+      "Пройдите 3 юзабилити-теста по чужим гайдам, затем попробуйте провести своё интервью — задавайте «почему?» вместо «нравится?».",
+      "Возьмите ближайшую задачу и сформулируйте её как исследовательский вопрос. Подберите метод (интервью / опрос / usability), проведите 5 сессий и напишите insights-документ.",
+      "Соберите из 3 последних исследований связку «проблема → инсайт → продуктовое решение → метрика». Это ваш main артефакт для роста в Senior.",
+      "Поставьте дискавери-процесс команде: шаблоны, ритм, отчётность. Обучите PM или другого дизайнера проводить интервью самостоятельно."
+    ]
+  },
+  {
+    key: "ux",
+    name: "UX и информационная архитектура",
+    desc: "Проектирование флоу, состояний, логики, навигации. Основа продуктового дизайна.",
+    levels: [
+      "Рисую флоу по ТЗ и опираюсь на существующие паттерны. Сложные сценарии проверяет старший коллега.",
+      "Сам проектирую флоу с учётом граничных состояний, продумываю IA, обсуждаю tradeoffs решений.",
+      "Проектирую комплексные флоу с несколькими ролями и сценариями, вижу системные связи между фичами, продумываю edge-cases и error states сходу.",
+      "Задаю UX-стандарты продукта, провожу UX-ревью, вижу архитектуру продукта на 2 шага вперёд."
+    ],
+    recs: [
+      "Разберите 3 знакомых сервиса (Notion, Linear, Revolut) — нарисуйте их флоу и IA. Поймёте язык паттернов.",
+      "Каждой задаче считайте минимум 2–3 edge cases: пустое состояние, ошибка, загрузка, оффлайн. Сделайте это привычкой.",
+      "Возьмите целый раздел продукта и перепроектируйте его архитектуру от и до. Защитите перед командой — это сильный артефакт для Senior.",
+      "Проводите регулярные UX-ревью чужих работ, документируйте принципы вашего продукта, чтобы команда выравнивалась."
+    ]
+  },
+  {
+    key: "ui",
+    name: "UI и визуальный craft",
+    desc: "Композиция, типографика, визуальная иерархия, вкус. То, что отличает «нормально» от «вау».",
+    levels: [
+      "Применяю готовый стиль, следую гайдлайнам. Финальную полировку делает старший.",
+      "Создаю чистый UI с хорошей композицией, типографикой и иерархией. Уверенно работаю внутри стиля продукта.",
+      "Разрабатываю визуальный язык с нуля, решаю сложные задачи композиции и иерархии. Мои экраны становятся референсом.",
+      "Задаю визуальную дирекцию продукта, поднимаю craft всей команды, знаю, как объяснить «вкус» словами."
+    ],
+    recs: [
+      "Каждую неделю разбирайте 3 экрана из Mobbin/Dribbble — типографическая шкала, ритм, сетка. Насмотренность решает.",
+      "Возьмите свой последний экран и сделайте 5 визуальных итераций подряд. Выберите лучшую и объясните, почему она работает.",
+      "Спроектируйте визуальный язык нового фрагмента продукта с нуля: типографика, цвет, тон. Защитите систему, а не отдельные экраны.",
+      "Проводите визуальные ревью команды, формулируйте принципы (не «так красиво», а «плотность Х даёт Y»). Craft — это когда можно обучить других."
+    ]
+  },
+  {
+    key: "ds",
+    name: "Дизайн-системы и консистентность",
+    desc: "Работа с библиотеками, компонентами, токенами. Масштаб вместо единоразовых решений.",
+    levels: [
+      "Использую готовые компоненты из дизайн-системы, иногда забываю про паттерны и делаю «кастом».",
+      "Уверенно работаю с DS, добавляю и правлю компоненты, понимаю токены, варианты, состояния.",
+      "Строю фрагменты дизайн-системы сам, влияю на её архитектуру, связываю DS с кодом и продуктом.",
+      "Веду дизайн-систему как продукт: roadmap, governance, внедрение, синхронизация с фронтом."
+    ],
+    recs: [
+      "Проведите аудит: в ваших последних 10 экранах — сколько раз вы отошли от DS и почему? Почти всегда это неоправданно.",
+      "Возьмите один компонент и доведите его до состояния «production-ready»: все состояния, варианты, токены, документация.",
+      "Спроектируйте связку tokens → components → patterns для нового фрагмента продукта и согласуйте с разработкой.",
+      "Предложите модель governance для DS: кто принимает решения, как вносятся изменения, как измеряется adoption."
+    ]
+  },
+  {
+    key: "proto",
+    name: "Прототипирование и interaction",
+    desc: "Проработка взаимодействий, анимаций, микро-UX. Дизайн в движении, а не в статике.",
+    levels: [
+      "Делаю простые кликабельные прототипы в Figma, в основном статичные переходы.",
+      "Делаю интерактивные прототипы с состояниями, микроанимациями, реалистичными переходами.",
+      "Проектирую сложные interactions — жесты, анимации, состояния загрузки, motion-принципы.",
+      "Задаю motion и interaction guidelines для продукта, исследую новые паттерны."
+    ],
+    recs: [
+      "Возьмите последний экран и добавьте ему 3 состояния в прототипе (hover, loading, error). Покажите команде.",
+      "Освойте один инструмент для глубоких прототипов — Figma Prototype с variables, Rive, или Origami. Сделайте 2 кейса.",
+      "Продумайте motion-принципы для раздела продукта: easing, длительности, иерархия движения. Это редкий и дорогой навык.",
+      "Выстроите motion guidelines, обучите команду, подружите их с разработкой (Lottie/Rive/CSS)."
+    ]
+  },
+  {
+    key: "ai",
+    name: "AI-инструменты и workflow",
+    desc: "Насколько осознанно дизайнер использует AI в ежедневной работе — от промптинга до сборки собственных агентов и пайплайнов.",
+    levels: [
+      "Знаю, что есть Claude, ChatGPT, Figma AI — пробовал(а) несколько раз, но в основную работу это не встроено. Делаю руками.",
+      "Регулярно использую AI для рутины: генерирую UX-тексты и плейсхолдеры, суммирую фидбек и интервью, ищу референсы, ускоряю черновой research. Одна-две задачи в день.",
+      "Встраиваю AI в процесс осознанно: Figma Make или v0 для быстрых прототипов, Claude/Cursor для работы с кодом и дизайн-системой, Midjourney/Nano Banana/gpt-image для ассетов. Понимаю, где AI усиливает, а где мешает, и умею об этом рассказать.",
+      "Ставлю AI-практику для команды: подбираю инструменты, валидирую их по ROI, пишу шаблоны промптов, собираю свои скиллы и агенты под повторяющиеся задачи, обучаю коллег. Это уже не «я использую AI», а «наша команда использует AI»."
+    ],
+    recs: [
+      "Начните с одной задачи в день через AI: суммировать фидбек, сгенерировать 10 вариантов UX-текста, расшифровать интервью. Главное — встроить в рутину, а не пробовать раз в месяц.",
+      "Освойте один prototyping-AI: Figma Make или v0. Сделайте за вечер 2 прототипа, которые обычно заняли бы 2 дня. Это дверь в Senior-уровень по AI.",
+      "Опишите свой AI-workflow: какие задачи → какие инструменты → какие промпты. Поделитесь с командой как практикой. Попробуйте собрать свой агент или кастомный skill под регулярную задачу.",
+      "Запустите AI-guild или ритуал в команде: раз в 2 недели разбор нового инструмента, общая библиотека промптов, метрика adoption. Дизайн-организация с AI-практикой стоит в 2 раза дороже."
+    ]
+  },
+  {
+    key: "product",
+    name: "Продуктовое и бизнес-мышление",
+    desc: "Связка дизайна с метриками, бизнес-целями, приоритизацией. То, что часто отличает Middle от Senior.",
+    levels: [
+      "Делаю фичу по описанию, не всегда понимаю, для какой метрики и почему именно она приоритет.",
+      "Понимаю бизнес-цели фичи, связываю решения с метриками, задаю «зачем?» PM'у перед стартом.",
+      "Сам приоритизирую задачи по impact/effort, предлагаю альтернативные решения бизнес-проблемы, участвую в product discovery на равных с PM.",
+      "Влияю на продуктовую стратегию, формулирую гипотезы, владею частью роадмапа вместе с PM и product lead."
+    ],
+    recs: [
+      "Для каждой задачи в этом месяце письменно отвечайте на 3 вопроса: какая метрика? какая гипотеза? как узнаем, что сработало?",
+      "Предложите альтернативу на ближайшем спринте: «можно сделать X, но если цель — Y, то лучше сделать Z». Это шаг в Senior.",
+      "Возьмите ownership над одной метрикой продукта на квартал. Считайте её, защищайте решения цифрами, а не вкусом.",
+      "Пишите стратегические design-тезисы о направлении продукта и защищайте их на уровне лидеров команд."
+    ]
+  },
+  {
+    key: "comms",
+    name: "Коммуникация и сторителлинг",
+    desc: "Умение защитить решение, написать внятный doc, презентовать стейкхолдерам. Без этого Senior не случается.",
+    levels: [
+      "Рассказываю про своё решение по плану, теряюсь при вопросах стейкхолдеров, ухожу в детали.",
+      "Внятно защищаю решения, объясняю «почему так», готовлю читаемую документацию.",
+      "Сторителлинг: связываю проблему → инсайт → решение → impact. Умею работать с senior-стейкхолдерами, убеждать, не ссориться.",
+      "Выступаю лицом дизайна в компании, формирую нарратив, влияю на кросс-функциональные решения через коммуникацию."
+    ],
+    recs: [
+      "Перед каждой защитой пишите 3 предложения: проблема — решение — результат. Начинайте всегда с них, а не с экранов.",
+      "Снимите на видео одну свою защиту и посмотрите. 80% роста в коммуникации — в том, что вы слышите себя со стороны.",
+      "Научитесь вести сложные разговоры: отказ фиче, пересмотр скоупа, дедлайны. Читайте «Crucial Conversations».",
+      "Выступите внешне — митап, гостевой пост, эфир. Сторителлинг прокачивается только в публичных форматах."
+    ]
+  },
+  {
+    key: "leadership",
+    name: "Влияние, ownership и лидерство",
+    desc: "Ответственность, менторство, системное мышление, работа за пределами своей задачи.",
+    levels: [
+      "Выполняю задачи, которые мне дают. Фокус на своём куске, за рамки выходить не инициирую.",
+      "Беру ownership за свою зону, помогаю джунам, поднимаю риски заранее.",
+      "Веду сложные проекты end-to-end, влияю на решения за пределами своей зоны, менторю коллег.",
+      "Формирую процессы команды, развиваю людей, задаю направление всему дизайн-юниту."
+    ],
+    recs: [
+      "Инициируйте одно улучшение за пределами своей задачи в этом месяце — ревью-процесс, шаблон, встречу. Ownership начинается с мелочей.",
+      "Возьмите одного джуна на менторство (формально или нет). Проведение 4 1:1 научит вас больше, чем 10 курсов.",
+      "Возьмите проект на 2+ квартала, где вы — единственный дизайнер на стыке 3+ команд. Это главный senior-артефакт.",
+      "Запустите процесс или ритуал, который живёт без вас: design-review, дежурство по дизайн-системе, онбординг новичков."
+    ]
+  }
+];
+
+const LEVEL_NAMES = ["Junior", "Middle", "Senior", "Lead"];
+const LEVEL_COLORS = ["var(--j)", "var(--m)", "var(--s)", "var(--l)"];
+
+/* =====================================================================
+ * STATE
+ * ===================================================================*/
+let state = {
+  step: 0,
+  answers: new Array(SKILLS.length).fill(null),
+  name: "",
+  shuffledOrders: null  // per-skill shuffled order of levels, fixed once per session
+};
+
+function shuffleLevels() {
+  return SKILLS.map(() => {
+    const arr = [1, 2, 3, 4];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  });
+}
+
+/* =====================================================================
+ * FLOW
+ * ===================================================================*/
+function startAssessment() {
+  state.name = document.getElementById("name").value.trim();
+  state.shuffledOrders = shuffleLevels();
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("assessment").classList.remove("hidden");
+  renderStep();
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function renderStep() {
+  const s = SKILLS[state.step];
+  document.getElementById("step-label").textContent = `Навык ${state.step + 1} из ${SKILLS.length}`;
+  document.getElementById("skill-name").textContent = s.name;
+  document.getElementById("skill-desc").textContent = s.desc;
+  document.getElementById("progress").style.width = (state.step / SKILLS.length * 100) + "%";
+
+  const opts = document.getElementById("options");
+  opts.innerHTML = "";
+  const order = state.shuffledOrders[state.step];
+  order.forEach((level) => {
+    const text = s.levels[level - 1];
+    const selected = state.answers[state.step] === level;
+    const el = document.createElement("label");
+    el.className = "option" + (selected ? " selected" : "");
+    el.innerHTML = `
+      <input type="radio" name="lvl" value="${level}" ${selected ? "checked" : ""} />
+      <div class="text">${text}</div>
+    `;
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      state.answers[state.step] = level;
+      document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+      el.classList.add("selected");
+      document.getElementById("next-btn").disabled = false;
+    });
+    opts.appendChild(el);
+  });
+
+  document.getElementById("next-btn").disabled = state.answers[state.step] === null;
+  document.getElementById("back-btn").style.visibility = state.step === 0 ? "hidden" : "visible";
+  document.getElementById("next-btn").textContent = state.step === SKILLS.length - 1 ? "Посмотреть результат →" : "Дальше →";
+}
+
+function goNext() {
+  if (state.answers[state.step] === null) return;
+  if (state.step < SKILLS.length - 1) {
+    state.step++;
+    renderStep();
+    window.scrollTo({top: 0, behavior: "smooth"});
+  } else {
+    showResults();
+  }
+}
+
+function goBack() {
+  if (state.step > 0) {
+    state.step--;
+    renderStep();
+    window.scrollTo({top: 0, behavior: "smooth"});
+  }
+}
+
+/* =====================================================================
+ * RESULTS
+ * ===================================================================*/
+function showResults() {
+  document.getElementById("assessment").classList.add("hidden");
+  document.getElementById("results").classList.remove("hidden");
+
+  const answers = state.answers;
+  const avg = answers.reduce((a, b) => a + b, 0) / answers.length;
+  const min = Math.min(...answers);
+  const max = Math.max(...answers);
+  const gap = max - min;
+
+  // Overall level: the highest level reached by at least 75% of skills.
+  // (Means: you're senior only when most of your skills are at senior+.)
+  let overall = 1;
+  for (let lvl = 4; lvl >= 1; lvl--) {
+    const share = answers.filter(a => a >= lvl).length / answers.length;
+    if (share >= 0.75) { overall = lvl; break; }
+  }
+
+  // Header
+  const headerBits = ["Product / UX-UI designer"];
+  if (state.name) headerBits.unshift(state.name);
+  document.getElementById("result-header").textContent = headerBits.join(" · ");
+
+  // Overall level badge
+  const levelBadge = document.getElementById("overall-level");
+  levelBadge.textContent = "Уровень: " + LEVEL_NAMES[overall - 1];
+  levelBadge.style.background = overall === 4 ? "#E8E9F3" : "var(--accent-soft)";
+  levelBadge.style.color = overall === 4 ? "var(--l)" : "var(--accent)";
+
+  document.getElementById("current-level-text").textContent = LEVEL_NAMES[overall - 1];
+
+  // Verdict
+  const avgR = Math.round(avg * 10) / 10;
+  let verdict = "", explainer = "";
+  if (overall === 4) {
+    verdict = "Уверенный Lead-профиль.";
+    explainer = "Большая часть навыков на уровне Lead. Фокус теперь — на развитии команды и стратегии, а не на собственном craft.";
+  } else if (overall === 3) {
+    verdict = gap >= 2 ? "Senior с зонами роста." : "Стабильный Senior.";
+    explainer = "Чтобы двигаться в Lead, сила в крафте перестаёт решать — нужны команда, процессы и стратегическое влияние.";
+  } else if (overall === 2) {
+    verdict = gap >= 2 ? "Middle с выраженным перекосом." : "Уверенный Middle.";
+    explainer = "Middle → Senior — это не про рост одного навыка, а про выравнивание. Обычно мешают именно слабые стороны, а не недостаток сильных.";
+  } else {
+    verdict = "Junior-уровень с потенциалом роста.";
+    explainer = "Фокус на основах: UX-паттерны, визуальный craft, работа с дизайн-системой. Продуктовые и лидерские навыки можно пока не форсировать.";
+  }
+  document.getElementById("verdict").textContent = verdict;
+  document.getElementById("verdict-explainer").textContent = explainer;
+
+  // Imbalance zone
+  const imb = document.getElementById("imbalance-zone");
+  let weak = [];
+  let strong = [];
+  answers.forEach((a, i) => {
+    if (a <= overall - 2) weak.push(SKILLS[i].name);
+    if (a >= overall + 1 && a >= 3) strong.push(SKILLS[i].name);
+  });
+
+  if (gap >= 2) {
+    imb.innerHTML = `
+      <div class="imbalance-card">
+        <strong>Выраженный перекос (разрыв ${gap} уровня)</strong>
+        Самые слабые зоны: <b>${weak.length ? weak.join(", ") : SKILLS[answers.indexOf(min)].name}</b>.
+        Пока эти навыки ниже остальных на 2 уровня и больше, вырасти до следующего грейда не получится — даже если сильные стороны очень сильные.
+      </div>
+    `;
+  } else if (gap === 1) {
+    imb.innerHTML = `
+      <div class="imbalance-card ok">
+        <strong>Небольшой перекос (разрыв 1 уровень)</strong>
+        Профиль в целом сбалансирован. Подтяните слабые зоны — и готовы претендовать на следующий грейд.
+      </div>
+    `;
+  } else {
+    imb.innerHTML = `
+      <div class="imbalance-card ok">
+        <strong>Сбалансированный профиль</strong>
+        Все навыки на одном уровне. Это редко и хорошо: можно идти вверх единым фронтом.
+      </div>
+    `;
+  }
+
+  // Radar
+  drawRadar(answers);
+
+  // Breakdown
+  const breakdown = document.getElementById("skills-breakdown");
+  breakdown.innerHTML = "";
+  const ordered = SKILLS
+    .map((s, i) => ({s, lvl: answers[i]}))
+    .sort((a, b) => a.lvl - b.lvl);
+
+  ordered.forEach(({s, lvl}) => {
+    const pct = (lvl / 4) * 100;
+    const tone = lvl <= overall - 1 ? "low" : (lvl === overall ? "mid" : "high");
+    const row = document.createElement("div");
+    row.className = "skill-row";
+    row.innerHTML = `
+      <div class="bar-wrap">
+        <div class="bar ${tone}"><div style="width: ${pct}%"></div></div>
+        <div class="lvl-text" style="margin-top: 6px; font-size: 12px; color: var(--muted);">${LEVEL_NAMES[lvl - 1]}</div>
+      </div>
+      <div class="body">
+        <div class="name">${s.name}</div>
+        <div class="rec">${s.recs[lvl - 1]}</div>
+      </div>
+    `;
+    breakdown.appendChild(row);
+  });
+
+  // Focus — 2 skills with the biggest gap below overall
+  const focusCandidates = SKILLS
+    .map((s, i) => ({s, lvl: answers[i], gap: overall - answers[i]}))
+    .filter(x => x.gap >= 1)
+    .sort((a, b) => b.gap - a.gap)
+    .slice(0, 2);
+
+  const focusList = document.getElementById("focus-list");
+  focusList.innerHTML = "";
+  if (focusCandidates.length === 0) {
+    focusList.innerHTML = `<li>Все навыки на уровне <b>${LEVEL_NAMES[overall - 1]}</b> и выше. Пора ставить цель на следующий грейд: выберите 2 навыка, где вы уже близки к следующему уровню, и подтяните их.</li>`;
+    document.getElementById("focus-title").textContent = "Следующий грейд уже в фокусе";
+  } else {
+    focusCandidates.forEach(x => {
+      const li = document.createElement("li");
+      li.innerHTML = `<b>${x.s.name}</b> (сейчас ${LEVEL_NAMES[x.lvl - 1]}): ${x.s.recs[x.lvl - 1]}`;
+      focusList.appendChild(li);
+    });
+  }
+}
+
+/* =====================================================================
+ * SVG RADAR
+ * ===================================================================*/
+function drawRadar(answers) {
+  const svg = document.getElementById("radar");
+  const vbW = 520, vbH = 460;
+  svg.setAttribute("viewBox", `0 0 ${vbW} ${vbH}`);
+  const cx = vbW / 2, cy = vbH / 2;
+  const maxR = 150;
+  const n = SKILLS.length;
+  const levels = 4;
+  const slice = (2 * Math.PI) / n;
+
+  const colors = [
+    "#EF4444", // Research — red
+    "#F97316", // UX/IA — orange
+    "#EAB308", // UI craft — yellow
+    "#84CC16", // Design Sys. — lime
+    "#10B981", // Proto/IxD — emerald
+    "#06B6D4", // AI/workflow — cyan
+    "#3B82F6", // Product — blue
+    "#8B5CF6", // Comms — violet
+    "#EC4899"  // Leadership — pink
+  ];
+
+  const shortNames = [
+    "Research", "UX / IA", "UI craft", "Design Sys.",
+    "Proto / IxD", "AI / workflow", "Product", "Comms", "Leadership"
+  ];
+
+  // Helpers to build wedge paths
+  const point = (r, a) => [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  const wedge = (r1, r2, a1, a2) => {
+    // Ring wedge from inner radius r1 to outer r2, angle a1 → a2
+    const [x1o, y1o] = point(r2, a1);
+    const [x2o, y2o] = point(r2, a2);
+    const [x1i, y1i] = point(r1, a1);
+    const [x2i, y2i] = point(r1, a2);
+    if (r1 === 0) {
+      return `M ${cx} ${cy} L ${x1o} ${y1o} A ${r2} ${r2} 0 0 1 ${x2o} ${y2o} Z`;
+    }
+    return `M ${x1o} ${y1o} A ${r2} ${r2} 0 0 1 ${x2o} ${y2o} L ${x2i} ${y2i} A ${r1} ${r1} 0 0 0 ${x1i} ${y1i} Z`;
+  };
+
+  let html = "";
+
+  // Each skill: filled sector (up to level) + light sector (remainder to outer)
+  for (let i = 0; i < n; i++) {
+    const val = answers[i];
+    const a1 = -Math.PI / 2 + i * slice;
+    const a2 = a1 + slice;
+    const rFill = (val / levels) * maxR;
+    const color = colors[i];
+
+    // Filled portion
+    if (rFill > 0) {
+      html += `<path d="${wedge(0, rFill, a1, a2)}" fill="${color}" opacity="0.85" />`;
+    }
+    // Unfilled remainder
+    if (rFill < maxR) {
+      html += `<path d="${wedge(rFill, maxR, a1, a2)}" fill="${color}" opacity="0.10" />`;
+    }
+  }
+
+  // Concentric rings (white, to separate level bands)
+  for (let lvl = 0; lvl <= levels; lvl++) {
+    const r = (lvl / levels) * maxR;
+    html += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#FFFFFF" stroke-width="1.5" />`;
+  }
+  // Outer ring (dark outline)
+  html += `<circle cx="${cx}" cy="${cy}" r="${maxR}" fill="none" stroke="#D8D5CC" stroke-width="1" />`;
+
+  // Radial dividers between sectors
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI / 2 + i * slice;
+    const [x, y] = point(maxR, a);
+    html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#FFFFFF" stroke-width="1.5" />`;
+  }
+
+  // Level number badges on the vertical axis (going up)
+  for (let lvl = 1; lvl <= levels; lvl++) {
+    const r = (lvl / levels) * maxR - ((maxR / levels) / 2);
+    html += `<circle cx="${cx}" cy="${cy - r}" r="9" fill="#FFFFFF" stroke="#E5E3DC" stroke-width="1" />`;
+    html += `<text x="${cx}" y="${cy - r}" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="700" fill="#6B6B6B">${lvl}</text>`;
+  }
+
+  // Labels around the outside (mid-angle of each slice)
+  for (let i = 0; i < n; i++) {
+    const midAngle = -Math.PI / 2 + (i + 0.5) * slice;
+    const labelR = maxR + 24;
+    const [x, y] = point(labelR, midAngle);
+    let anchor = "middle";
+    if (Math.cos(midAngle) > 0.2) anchor = "start";
+    else if (Math.cos(midAngle) < -0.2) anchor = "end";
+    html += `<text x="${x}" y="${y}" text-anchor="${anchor}" dominant-baseline="middle" font-size="12" font-family="inherit" fill="#1A1A1A" font-weight="600">${shortNames[i]}</text>`;
+  }
+
+  svg.innerHTML = html;
+}
+
+function restart() {
+  state = { step: 0, answers: new Array(SKILLS.length).fill(null), name: "", shuffledOrders: null };
+  document.getElementById("results").classList.add("hidden");
+  document.getElementById("intro").classList.remove("hidden");
+  document.getElementById("name").value = "";
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+</script>
+</body>
+</html>
