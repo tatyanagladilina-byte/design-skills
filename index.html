@@ -4,13 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Карта баланса навыков · Product / UX-UI designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #F7F6F2;
+    --bg: #F1EFEA;
     --panel: #FFFFFF;
-    --ink: #1A1A1A;
+    --ink: #14181A;
     --muted: #6B6B6B;
-    --line: #E5E3DC;
+    --line: #E5E2DA;
     --accent: #2E5BFF;
     --accent-soft: #E8EEFF;
     --ok: #2F9E4F;
@@ -20,28 +23,65 @@
     --m: #4A90E2;
     --s: #2E5BFF;
     --l: #1B2A5B;
+    --serif: "Fraunces", "Times New Roman", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    font-family: var(--sans);
     background: var(--bg);
     color: var(--ink);
-    line-height: 1.5;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
   }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 120px; }
-  h1 { font-size: 34px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; }
-  h2 { font-size: 22px; line-height: 1.2; margin: 32px 0 12px; letter-spacing: -0.005em; }
-  h3 { font-size: 17px; margin: 0 0 4px; }
+  /* pastel background blobs — MonksHub-style */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 55vw 45vh at 8% 6%,  rgba(184, 232, 213, 0.55) 0%, rgba(184, 232, 213, 0) 60%),
+      radial-gradient(ellipse 60vw 50vh at 95% 4%, rgba(251, 209, 220, 0.55) 0%, rgba(251, 209, 220, 0) 60%),
+      radial-gradient(ellipse 70vw 50vh at 50% 100%, rgba(252, 226, 196, 0.45) 0%, rgba(252, 226, 196, 0) 65%),
+      radial-gradient(ellipse 40vw 35vh at 100% 60%, rgba(214, 220, 250, 0.4) 0%, rgba(214, 220, 250, 0) 70%);
+    filter: blur(20px);
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 64px 24px 120px; position: relative; z-index: 1; }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 32px 0 12px;
+  }
+  h3 { font-family: var(--sans); font-size: 17px; font-weight: 600; margin: 0 0 4px; }
+  @media (max-width: 620px) {
+    h1 { font-size: 38px; }
+    h2 { font-size: 24px; }
+  }
   p  { margin: 0 0 12px; color: #2a2a2a; }
   .muted { color: var(--muted); }
   .panel {
     background: var(--panel);
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: 20px;
     padding: 28px;
     margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(20, 24, 26, 0.04), 0 8px 24px rgba(20, 24, 26, 0.04);
   }
   .intro-lead { font-size: 18px; color: #2a2a2a; }
   .meta-row {
@@ -76,23 +116,29 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 20px;
+    padding: 13px 24px;
     background: var(--ink);
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 999px;
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
     font-family: inherit;
-    transition: transform 0.05s, background 0.15s;
+    transition: transform 0.05s, background 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 2px rgba(20, 24, 26, 0.08), 0 4px 12px rgba(20, 24, 26, 0.08);
   }
-  .btn:hover { background: #000; }
+  .btn:hover { background: #000; box-shadow: 0 2px 4px rgba(20, 24, 26, 0.12), 0 6px 16px rgba(20, 24, 26, 0.10); }
   .btn:active { transform: translateY(1px); }
-  .btn.secondary { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .btn.secondary {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(20, 24, 26, 0.04), 0 2px 8px rgba(20, 24, 26, 0.04);
+  }
   .btn.secondary:hover { border-color: var(--ink); background: #fff; }
-  .btn.ghost { background: transparent; color: var(--muted); padding: 8px 12px; }
-  .btn.ghost:hover { color: var(--ink); background: transparent; }
+  .btn.ghost { background: transparent; color: var(--muted); padding: 8px 12px; box-shadow: none; }
+  .btn.ghost:hover { color: var(--ink); background: transparent; box-shadow: none; }
   .progress-bar {
     height: 4px;
     background: var(--line);
@@ -244,14 +290,19 @@
   }
   .mode-card {
     background: #fff;
-    border: 1.5px solid var(--line);
-    border-radius: 12px;
-    padding: 20px 20px 18px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 24px 22px 20px;
     display: flex;
     flex-direction: column;
-    transition: border-color 0.15s, transform 0.1s;
+    transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 1px 2px rgba(20, 24, 26, 0.04), 0 8px 24px rgba(20, 24, 26, 0.05);
   }
-  .mode-card:hover { border-color: var(--ink); }
+  .mode-card:hover {
+    border-color: rgba(20, 24, 26, 0.4);
+    box-shadow: 0 2px 4px rgba(20, 24, 26, 0.06), 0 12px 32px rgba(20, 24, 26, 0.08);
+    transform: translateY(-1px);
+  }
   .mode-card .mode-icon { font-size: 22px; margin-bottom: 8px; }
   .mode-card h3 { font-size: 16px; margin: 0 0 6px; }
   .mode-card p { font-size: 14px; margin: 0 0 10px; color: #2a2a2a; line-height: 1.45; }
@@ -323,6 +374,9 @@
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
+
+    /* hide background blobs in print */
+    body::before { display: none !important; }
 
     .wrap { padding: 0 !important; max-width: none !important; }
 
