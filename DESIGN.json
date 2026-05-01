@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-04-30T00:00:00Z",
+  "title": "Design System: Карта баланса навыков",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Archive Paper",
+        "canonical": "#F8F5EE",
+        "tonalRamp": ["#1A1815", "#3A3530", "#6B6660", "#C9C2B6", "#E8E2D6", "#F0EDE6", "#F8F5EE", "#FFFFFF"]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Pure Sheet",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#1A1815", "#3A3530", "#6B6660", "#C9C2B6", "#E8E2D6", "#F0EDE6", "#F8F5EE", "#FFFFFF"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Printing Ink",
+        "canonical": "#1A1815",
+        "tonalRamp": ["#0A0908", "#1A1815", "#2A2520", "#3A3530", "#5A5550", "#6B6660", "#9A958F", "#C9C2B6"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Carbon Proof",
+        "canonical": "#3A3530",
+        "tonalRamp": ["#1A1815", "#2A2520", "#3A3530", "#4A4540", "#5A5550", "#6B6660", "#9A958F", "#C9C2B6"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Weathered Slate",
+        "canonical": "#6B6660",
+        "tonalRamp": ["#2A2520", "#3A3530", "#4A4540", "#5A5550", "#6B6660", "#9A958F", "#C9C2B6", "#E8E2D6"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Pressed Cotton",
+        "canonical": "#E8E2D6",
+        "tonalRamp": ["#C9C2B6", "#D6CDB9", "#E0D9CC", "#E8E2D6", "#EDE8DF", "#F0EDE6", "#F4F1EB", "#F8F5EE"]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Linen Crease",
+        "canonical": "#D6CDB9",
+        "tonalRamp": ["#B0A895", "#C9C2B6", "#D6CDB9", "#E0D9CC", "#E8E2D6", "#EDE8DF", "#F0EDE6", "#F8F5EE"]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Blueprint Teal",
+        "canonical": "#2EA8B8",
+        "tonalRamp": ["#0D3A3F", "#14555C", "#1F7B88", "#2EA8B8", "#4DBDCC", "#80CDD6", "#B3DFE5", "#E0F0F2"]
+      },
+      "accent-deep": {
+        "role": "primary",
+        "displayName": "Blueprint Dark",
+        "canonical": "#1F7B88",
+        "tonalRamp": ["#0A2E33", "#14555C", "#1F7B88", "#2EA8B8", "#4DBDCC", "#80CDD6", "#B3DFE5", "#E0F0F2"]
+      },
+      "accent-soft": {
+        "role": "secondary",
+        "displayName": "Blueprint Wash",
+        "canonical": "#E0F0F2",
+        "tonalRamp": ["#80CDD6", "#B3DFE5", "#CCE8EC", "#E0F0F2", "#EBF5F7", "#F0F8FA", "#F5FBFC", "#FAFEFF"]
+      },
+      "ok": {
+        "role": "status",
+        "displayName": "Forest Census",
+        "canonical": "#3C5A3E",
+        "tonalRamp": ["#1A2E1B", "#2A4229", "#3C5A3E", "#4E6E50", "#6A8A6C", "#92AA94", "#BACCBC", "#DCE8DC"]
+      },
+      "warn": {
+        "role": "status",
+        "displayName": "Ochre Annotation",
+        "canonical": "#A06A1F",
+        "tonalRamp": ["#4A2E08", "#6B4411", "#8A581A", "#A06A1F", "#BC8428", "#D4A850", "#E8C888", "#F5E4C0"]
+      },
+      "bad": {
+        "role": "status",
+        "displayName": "Brick Negative",
+        "canonical": "#8B2F2F",
+        "tonalRamp": ["#3A0E0E", "#5C1C1C", "#7A2828", "#8B2F2F", "#A84040", "#C07070", "#DDA0A0", "#F2D4D4"]
+      },
+      "level-j": {
+        "role": "data",
+        "displayName": "Junior Ash",
+        "canonical": "#C9C2B6",
+        "tonalRamp": ["#6B6660", "#9A958F", "#B0A895", "#C9C2B6", "#D6CDB9", "#E0D9CC", "#EDE8DF", "#F4F1EB"]
+      },
+      "level-m": {
+        "role": "data",
+        "displayName": "Middle Slate",
+        "canonical": "#8E8478",
+        "tonalRamp": ["#3A3530", "#5A5550", "#6B6660", "#8E8478", "#A09890", "#B8B2AC", "#D0CCC8", "#E8E2D6"]
+      },
+      "level-s": {
+        "role": "data",
+        "displayName": "Senior Carbon",
+        "canonical": "#3A3530",
+        "tonalRamp": ["#1A1815", "#2A2520", "#3A3530", "#4A4540", "#6B6660", "#9A958F", "#C9C2B6", "#E8E2D6"]
+      },
+      "level-l": {
+        "role": "data",
+        "displayName": "Lead Ink",
+        "canonical": "#1A1815",
+        "tonalRamp": ["#0A0908", "#1A1815", "#2A2520", "#3A3530", "#5A5550", "#6B6660", "#9A958F", "#C9C2B6"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Section titles in the hero only. Fraunces variable opsz 144 gives maximum editorial weight. One or two lines maximum — never body copy."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section subheaders (e.g. «Ваш результат», «Зоны роста»). Fraunces opsz 60 — slightly narrower optical size, still unmistakably serif editorial."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card labels, skill names, step numbers in prose. Geist 600 — the legible workhorse title weight."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All descriptive prose, recommendations, question text. 15px Geist 400, 65–75ch line length. The dominant reading surface."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Captions, helper text, timestamps. Never for actionable content."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Level chips (J / M / S / L), status tags, table column headers. 11px Geist 500 uppercase — a technical annotation, not a design statement."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Score numbers on KPI tiles, skill percentages, radar axis values. Geist Mono with tnum + cv11 so all digit columns align. Never for prose."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default easing for state transitions (button hover, panel reveal). 200ms."
+      },
+      {
+        "name": "ease-out-quick",
+        "value": "cubic-bezier(0.0, 0, 0.2, 1)",
+        "purpose": "Entering elements (results section fade-in). 300ms."
+      },
+      {
+        "name": "ease-compare",
+        "value": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+        "purpose": "Image-compare slider drag. 0ms delay, continuous tracking."
+      },
+      {
+        "name": "reduced-motion-override",
+        "value": "prefers-reduced-motion: reduce → all transitions 0ms, no transform animations",
+        "purpose": "Accessibility: all motion disabled when user preference is set."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "480px", "purpose": "Single-column layout threshold. Mode-cards stack vertically." },
+      { "name": "md", "value": "768px", "purpose": "Two-column mode-card grid becomes possible. KPI row 2+2." },
+      { "name": "lg", "value": "1024px", "purpose": "Full 3-up asymmetric mode-card layout. Max content width 900px." }
+    ],
+    "elevationNote": "This system is flat by default. No box-shadow anywhere. Depth is communicated via tonal stepping (paper #F8F5EE → paper-raised #FFFFFF) and 1px hairline borders (#E8E2D6). A panel sitting on page is white (#FFFFFF) on warm off-white (#F8F5EE) — visible step without shadow. The absence of shadow is a design statement: this reads as a printed document, not an app with layered surfaces."
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default CTA. Ink background — authority without decoration. No border-radius rounding to speak of (4px), no shadow.",
+      "html": "<button class=\"ds-btn-primary\">Начать диагностику</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; background: #1A1815; color: #F8F5EE; font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; letter-spacing: 0; padding: 12px 22px; border: none; border-radius: 4px; cursor: pointer; transition: background 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { background: #1F7B88; } .ds-btn-primary:focus-visible { outline: 2px solid #2EA8B8; outline-offset: 2px; } .ds-btn-primary:active { background: #14555C; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "Blueprint Teal CTA — used on primary mode-card action only. One per screen maximum.",
+      "html": "<button class=\"ds-btn-accent\">Пройти самодиагностику</button>",
+      "css": ".ds-btn-accent { display: inline-flex; align-items: center; justify-content: center; background: #2EA8B8; color: #FFFFFF; font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; padding: 12px 22px; border: none; border-radius: 4px; cursor: pointer; transition: background 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-accent:hover { background: #1F7B88; } .ds-btn-accent:focus-visible { outline: 2px solid #2EA8B8; outline-offset: 2px; box-shadow: 0 0 0 4px #E0F0F2; } .ds-btn-accent:active { background: #14555C; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action. Paper background with ink text. Hairline border makes it visible on paper surface.",
+      "html": "<button class=\"ds-btn-ghost\">Скачать PDF</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; background: #F8F5EE; color: #1A1815; font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; padding: 12px 22px; border: 1px solid #E8E2D6; border-radius: 4px; cursor: pointer; transition: background 200ms cubic-bezier(0.4,0,0.2,1), border-color 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-ghost:hover { background: #FFFFFF; border-color: #D6CDB9; } .ds-btn-ghost:focus-visible { outline: 2px solid #2EA8B8; outline-offset: 2px; } .ds-btn-ghost:active { background: #F0EDE6; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Standard container for content sections. White on off-white paper — tonal separation without shadow. 8px radius is the maximum for this system.",
+      "html": "<div class=\"ds-panel\"><p>Содержимое панели</p></div>",
+      "css": ".ds-panel { background: #FFFFFF; border: 1px solid #E8E2D6; border-radius: 8px; padding: 28px; }"
+    },
+    {
+      "name": "Level Chip",
+      "kind": "chip",
+      "refersTo": "level-chip",
+      "description": "Grade badge — J / M / S / L. Monochrome, technical annotation style. No colour per level — the label text is enough.",
+      "html": "<span class=\"ds-level-chip\">Middle</span>",
+      "css": ".ds-level-chip { display: inline-flex; align-items: center; font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; padding: 3px 8px; background: #E8E2D6; color: #1A1815; border-radius: 2px; }"
+    },
+    {
+      "name": "Mode Card",
+      "kind": "card",
+      "description": "Signature component — one of three entry-point cards on the hero. Asymmetric layout: the first card (самодиагностика) is wider (~60% of row). Numbered 01/02/03 in Fraunces display. No emoji. Each card has a single CTA. Border-left:3px accent stripe on the featured card only.",
+      "html": "<article class=\"ds-mode-card ds-mode-card--featured\">\n  <span class=\"ds-mode-card__num\">01</span>\n  <h3 class=\"ds-mode-card__title\">Самодиагностика</h3>\n  <p class=\"ds-mode-card__desc\">9 вопросов — по одному на навык. Выберите формулировку, которая точно описывает ваш реальный уровень.</p>\n  <button class=\"ds-btn-accent\">Начать →</button>\n</article>",
+      "css": ".ds-mode-card { background: #FFFFFF; border: 1px solid #E8E2D6; border-radius: 4px; padding: 28px; display: flex; flex-direction: column; gap: 12px; } .ds-mode-card--featured { border-left: 3px solid #2EA8B8; } .ds-mode-card__num { font-family: Fraunces, 'Times New Roman', Georgia, serif; font-size: 2rem; font-weight: 600; line-height: 1; color: #D6CDB9; font-variation-settings: 'opsz' 144; } .ds-mode-card__title { font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 1rem; font-weight: 600; color: #1A1815; margin: 0; } .ds-mode-card__desc { font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.9375rem; font-weight: 400; line-height: 1.55; color: #3A3530; margin: 0; flex: 1; }"
+    },
+    {
+      "name": "KPI Tile",
+      "kind": "card",
+      "refersTo": "kpi-tile",
+      "description": "Results dashboard tile — 4 in a row. Shows a single metric: score number in Geist Mono + label + optional status colour on the number. White panel, hairline border, no shadow.",
+      "html": "<div class=\"ds-kpi-tile\">\n  <span class=\"ds-kpi-tile__value\" data-status=\"warn\">6.2</span>\n  <span class=\"ds-kpi-tile__label\">Средний балл</span>\n</div>",
+      "css": ".ds-kpi-tile { background: #FFFFFF; border: 1px solid #E8E2D6; border-radius: 4px; padding: 20px; display: flex; flex-direction: column; gap: 4px; } .ds-kpi-tile__value { font-family: 'Geist Mono', 'JetBrains Mono', 'SF Mono', Consolas, monospace; font-size: 2rem; font-weight: 500; line-height: 1.1; color: #1A1815; font-feature-settings: 'tnum' 1, 'cv11' 1; } .ds-kpi-tile__value[data-status='ok'] { color: #3C5A3E; } .ds-kpi-tile__value[data-status='warn'] { color: #A06A1F; } .ds-kpi-tile__value[data-status='bad'] { color: #8B2F2F; } .ds-kpi-tile__label { font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6660; }"
+    },
+    {
+      "name": "Skill Bar",
+      "kind": "custom",
+      "description": "Horizontal bar in the skills breakdown table. 2px ink-colored track with teal marker at current value. Score in Geist Mono right-aligned. The bar width is the skill's score as % of max (4). Status colour applied to score number only, not the bar fill.",
+      "html": "<div class=\"ds-skill-bar\">\n  <span class=\"ds-skill-bar__name\">Information Architecture</span>\n  <div class=\"ds-skill-bar__track\">\n    <div class=\"ds-skill-bar__fill\" style=\"width: 75%\"></div>\n    <div class=\"ds-skill-bar__marker\" style=\"left: 75%\"></div>\n  </div>\n  <span class=\"ds-skill-bar__score\" data-status=\"ok\">3 / 4</span>\n</div>",
+      "css": ".ds-skill-bar { display: grid; grid-template-columns: 1fr 2fr auto; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid #E8E2D6; } .ds-skill-bar:last-child { border-bottom: none; } .ds-skill-bar__name { font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.9375rem; font-weight: 400; color: #3A3530; } .ds-skill-bar__track { position: relative; height: 2px; background: #E8E2D6; border-radius: 1px; } .ds-skill-bar__fill { position: absolute; top: 0; left: 0; height: 2px; background: #1A1815; border-radius: 1px; transition: width 600ms cubic-bezier(0.0,0,0.2,1); } .ds-skill-bar__marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: #2EA8B8; border-radius: 50%; transition: left 600ms cubic-bezier(0.0,0,0.2,1); } .ds-skill-bar__score { font-family: 'Geist Mono', 'JetBrains Mono', 'SF Mono', Consolas, monospace; font-size: 0.875rem; font-weight: 500; color: #1A1815; font-feature-settings: 'tnum' 1; } .ds-skill-bar__score[data-status='ok'] { color: #3C5A3E; } .ds-skill-bar__score[data-status='warn'] { color: #A06A1F; } .ds-skill-bar__score[data-status='bad'] { color: #8B2F2F; }"
+    },
+    {
+      "name": "Image Compare Slider",
+      "kind": "custom",
+      "description": "ДО/ПОСЛЕ section — drag handle between two images. Hairline vertical divider + circular handle with teal border. Keyboard accessible (arrow keys). Labels 'ДО' / 'ПОСЛЕ' in label typography, always visible.",
+      "html": "<div class=\"ds-compare\" role=\"img\" aria-label=\"Сравнение до и после\">\n  <div class=\"ds-compare__before\"><span class=\"ds-compare__label\">ДО</span></div>\n  <div class=\"ds-compare__after\"><span class=\"ds-compare__label ds-compare__label--after\">ПОСЛЕ</span></div>\n  <div class=\"ds-compare__divider\" style=\"left: 50%\">\n    <div class=\"ds-compare__handle\" tabindex=\"0\" role=\"slider\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"50\" aria-label=\"Перемещать для сравнения\">⇔</div>\n  </div>\n</div>",
+      "css": ".ds-compare { position: relative; width: 100%; overflow: hidden; border: 1px solid #E8E2D6; border-radius: 4px; cursor: col-resize; user-select: none; } .ds-compare__before, .ds-compare__after { position: absolute; top: 0; bottom: 0; } .ds-compare__before { left: 0; right: 0; background: #E8E2D6; } .ds-compare__after { left: 0; right: 0; background: #FFFFFF; clip-path: inset(0 50% 0 0); } .ds-compare__divider { position: absolute; top: 0; bottom: 0; width: 1px; background: #1A1815; transform: translateX(-50%); } .ds-compare__handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 36px; height: 36px; background: #FFFFFF; border: 2px solid #2EA8B8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #2EA8B8; cursor: col-resize; } .ds-compare__handle:focus-visible { outline: 2px solid #2EA8B8; outline-offset: 2px; } .ds-compare__label { position: absolute; bottom: 12px; font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6660; left: 12px; } .ds-compare__label--after { left: auto; right: 12px; }"
+    },
+    {
+      "name": "Step Block",
+      "kind": "custom",
+      "description": "Numbered step in the quiz flow and the 'что делать дальше' section. Large Fraunces display numeral (muted level-j color) + title + body. Not a list — each step is a standalone block with hairline top border.",
+      "html": "<div class=\"ds-step\">\n  <span class=\"ds-step__num\">01</span>\n  <div class=\"ds-step__content\">\n    <h3 class=\"ds-step__title\">Information Architecture</h3>\n    <p class=\"ds-step__body\">Как вы проектируете структуру и навигацию продукта.</p>\n  </div>\n</div>",
+      "css": ".ds-step { display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; padding: 24px 0; border-top: 1px solid #E8E2D6; } .ds-step:first-child { border-top: none; } .ds-step__num { font-family: Fraunces, 'Times New Roman', Georgia, serif; font-size: 3rem; font-weight: 600; line-height: 1; color: #C9C2B6; font-variation-settings: 'opsz' 144; padding-top: 4px; } .ds-step__title { font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 1rem; font-weight: 600; color: #1A1815; margin: 0 0 8px 0; } .ds-step__body { font-family: Geist, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 0.9375rem; font-weight: 400; line-height: 1.55; color: #3A3530; margin: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Patterns Manual",
+    "overview": "Это не лендинг и не квиз — это инструмент-документация в духе Apple HIG, patterns.dev и Origami Studio docs. Каждый экран читается как страница серьёзного справочника по дизайну: тёплая бумага, чернильная типографика, диаграммы как первоклассный контент, ноль декораций. Личность системы — senior-консультант или хороший профессор, который говорит точно, ссылается на паттерны и не пытается понравиться.\n\nBlueprint Teal (#2EA8B8) играет роль blueprint-чернил в техническом руководстве — приглушённый сине-зелёный, который инженеры и архитекторы веками используют в чертежах и lab-notebooks. Не «AI-cyan», не Stripe-blue, не neon. Десатурированный (≈60% saturation) и сдвинутый в зелёную сторону, он читается как «инструментальный», а не «декоративный». Его мало, он стоит ровно там, где требует внимания: основной CTA, focus-state, маркер «вот ваше текущее значение».\n\nСистема явно отвергает: дженерик SaaS (Inter + Stripe-blue + симметричные карточки с эмодзи), Awwwards-брутализм с GSAP-фейерверками, Notion/16personalities-стиль с пастельными блобами и игровыми поздравлениями, hustle/coach-вайб «прокачай себя за 30 дней». Тон спокойный, диагностический, не утешающий.",
+    "keyCharacteristics": [
+      "Off-white paper (#F8F5EE) как основной фон, ink (#1A1815) как основной цвет текста",
+      "Blueprint Teal (#2EA8B8) — единственный акцент, ≤8% площади",
+      "Editorial pairing: Fraunces (Display) × Geist Sans (Body) × Geist Mono (Data)",
+      "Flat by default — никаких box-shadow, только 1px hairline borders",
+      "Asymmetric grid — отказ от трёх одинаковых карточек в ряд",
+      "Numbered 01/02/03 вместо эмодзи и пиктограмм-иконок",
+      "Density over decoration — данные плотные, декоративный whitespace исключён"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Teal используется на ≤8% площади любого экрана. Если она занимает больше — это уже бренд-цвет, и инструмент перестаёт читаться как документация.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat-by-Default Rule",
+        "body": "Ни одна поверхность не получает box-shadow. Глубина читается через тональный шаг: paper (#F8F5EE) → paper-raised (#FFFFFF) + 1px hairline border.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Numeral-not-Emoji Rule",
+        "body": "Любая иерархия, порядок или группировка передаётся числом (01/02/03) или текстом — никогда эмодзи или пиктограммами-иконками.",
+        "section": "typography"
+      },
+      {
+        "name": "The Data-First Rule",
+        "body": "Каждое утверждение о навыке подкреплено числом или паттерном. Ни одного «честно» или «глубоко» без score или артефакта рядом.",
+        "section": "components"
+      },
+      {
+        "name": "The Geist-Mono-for-Numbers Rule",
+        "body": "Любой вывод данных (score, процент, ось радара) использует Geist Mono с tnum+cv11. Никогда — Geist Sans для цифр в data-контексте.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do use Archive Paper (#F8F5EE) as the body background — never pure white or cold gray.",
+      "Do use Fraunces only for Display (hero title) and Headline (section subheaders) — no Fraunces in body copy.",
+      "Do use Geist Mono for all score values, percentages, and axis labels on charts.",
+      "Do communicate hierarchy through 1px hairline borders and tonal background steps, not shadows.",
+      "Do use asymmetric column widths for mode cards — the primary entry point should occupy more visual real estate.",
+      "Do keep Blueprint Teal to three uses per screen: primary CTA, focus ring, and data marker.",
+      "Do use uppercase label typography (0.6875rem, 0.08em tracking) for all chip labels and column headers.",
+      "Do number steps and cards with Fraunces display numerals (01/02/03) in level-j color (#C9C2B6) — muted, not decorative.",
+      "Do pass prefers-reduced-motion — all transitions must be suppressed to 0ms when the user preference is set."
+    ],
+    "donts": [
+      "Don't use Inter — it is the primary anti-reference. Use Geist Sans for all UI copy.",
+      "Don't use #2E5BFF (Stripe-blue) or any electric blue — the accent is Blueprint Teal (#2EA8B8), desaturated and warm-shifted.",
+      "Don't use emoji in UI — not as icons, not in headings, not in result messages.",
+      "Don't add box-shadow to any surface — not to panels, not to buttons, not to modal overlays.",
+      "Don't use pastel radial-gradient blobs as background decoration — this is an anti-reference (Notion/16personalities pattern).",
+      "Don't use border-radius > 8px on any component.",
+      "Don't use three identical symmetrical cards in a row — the grid is intentionally asymmetric.",
+      "Don't write motivational copy: no 'верь в себя', no 'не переживайте', no 'стань лучшей версией'.",
+      "Don't use accent color for full-bleed backgrounds, navigation icons, or inline text links.",
+      "Don't use GSAP, scroll-jacking, parallax, infinite marquee, or any motion that runs without user gesture.",
+      "Don't use true black (#000000) or true white (#FFFFFF) as primary surface colors — use ink (#1A1815) and paper (#F8F5EE)."
+    ]
+  }
+}
